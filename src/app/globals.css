@@ -447,6 +447,12 @@ body {
 
 section {
   contain: layout style paint;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 800px;
+}
+
+canvas {
+  will-change: contents;
 }
 
 /* ===== ARCHITECTURE DIAGRAM ===== */

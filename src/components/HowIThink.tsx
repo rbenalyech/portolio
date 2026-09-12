@@ -19,7 +19,7 @@ export default function HowIThink() {
   const { t } = useLanguage();
 
   return (
-    <section className="relative py-32 overflow-hidden">
+    <section className="relative py-16 sm:py-24 md:py-32 overflow-hidden">
       <div className="max-w-6xl mx-auto px-6">
         <ScrollReveal>
           <div className="flex items-center gap-4 mb-4">

@@ -31,8 +31,8 @@ export default function NetworkCanvas({ className = '', dense = false }: { class
     canvas.width = rect.width * window.devicePixelRatio;
     canvas.height = rect.height * window.devicePixelRatio;
 
-    const density = dense ? 3000 : 5000;
-    const maxNodes = dense ? 350 : 180;
+    const density = dense ? 6000 : 8000;
+    const maxNodes = dense ? 150 : 80;
     const count = Math.min(Math.floor((rect.width * rect.height) / density), maxNodes);
     nodesRef.current = Array.from({ length: count }, () => {
       const x = Math.random() * canvas.width;
@@ -175,11 +175,21 @@ export default function NetworkCanvas({ className = '', dense = false }: { class
     const onResize = () => { init(); };
     window.addEventListener('resize', onResize);
 
+    const onVisibility = () => {
+      if (document.hidden) {
+        cancelAnimationFrame(animRef.current);
+      } else {
+        animRef.current = requestAnimationFrame(draw);
+      }
+    };
+    document.addEventListener('visibilitychange', onVisibility);
+
     return () => {
       cancelAnimationFrame(animRef.current);
       window.removeEventListener('mousemove', onMouseMove);
       window.removeEventListener('mouseleave', onMouseLeave);
       window.removeEventListener('resize', onResize);
+      document.removeEventListener('visibilitychange', onVisibility);
     };
   }, [init]);
 

@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Space_Grotesk, Inter, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 
@@ -6,7 +6,7 @@ const spaceGrotesk = Space_Grotesk({
   variable: '--font-heading',
   subsets: ['latin'],
   display: 'swap',
-  weight: ['400', '500', '600', '700'],
+  weight: ['500', '600', '700'],
 });
 
 const inter = Inter({
@@ -21,6 +21,12 @@ const jetbrainsMono = JetBrains_Mono({
   display: 'swap',
   weight: ['400', '500'],
 });
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  themeColor: '#050A0F',
+};
 
 export const metadata: Metadata = {
   title: 'Riyad Benalyech — Cybersecurity, Systems & Networks',

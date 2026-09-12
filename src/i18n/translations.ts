@@ -26,10 +26,10 @@ export interface Translations {
     intro: string;
     description: string;
     pillars: {
-      cybersecurity: { title: string; description: string };
-      systems: { title: string; description: string };
-      networks: { title: string; description: string };
-      digital: { title: string; description: string };
+      cybersecurity: { title: string; description: string; skills: string[] };
+      systems: { title: string; description: string; skills: string[] };
+      networks: { title: string; description: string; skills: string[] };
+      digital: { title: string; description: string; skills: string[] };
     };
     languagesLabel: string;
     languageLevels: { french: string; dutch: string; english: string };
@@ -172,6 +172,10 @@ export interface Translations {
     labels: { email: string; linkedin: string; github: string; cv: string };
     cvValue: string;
     cta: string;
+    ctaCopied: string;
+  };
+  networkMap: {
+    nodes: Record<string, { label: string; description: string; details: string[] }>;
   };
   terminal: {
     welcome: string;
@@ -212,18 +216,22 @@ export const translations: Record<Language, Translations> = {
         cybersecurity: {
           title: 'Cybersecurity',
           description: 'Understanding security challenges, authentication mechanisms, hardening practices, and risk analysis.',
+          skills: ['Firewall', 'IDS/IPS', 'Hardening', 'Risk Analysis'],
         },
         systems: {
           title: 'Systems',
           description: 'Administering Windows Server, Active Directory environments, and managing enterprise system infrastructure.',
+          skills: ['Windows Server', 'Active Directory', 'GPO', 'PowerShell'],
         },
         networks: {
           title: 'Networks',
           description: 'Understanding how machines, services and infrastructures communicate — from DNS to iSCSI to VLANs.',
+          skills: ['DNS', 'DHCP', 'VLAN', 'TCP/IP'],
         },
         digital: {
           title: 'Digital Consulting',
           description: 'Translating business needs into technical solutions. Analysis, strategy, and clear communication.',
+          skills: ['Analysis', 'Strategy', 'Communication', 'Solutions'],
         },
       },
       languagesLabel: 'Languages',
@@ -395,7 +403,19 @@ export const translations: Record<Language, Translations> = {
       description: "I'm always open to discussing new opportunities, interesting projects, or just having a conversation about technology. Feel free to reach out.",
       labels: { email: 'Email', linkedin: 'LinkedIn', github: 'GitHub', cv: 'CV' },
       cvValue: 'Download Resume',
-      cta: 'Get in Touch',
+      cta: 'Copy Email',
+      ctaCopied: 'Copied!',
+    },
+    networkMap: {
+      nodes: {
+        internet: { label: 'INTERNET', description: 'External network traffic', details: ['Inbound: 1.2 Gbps', 'Outbound: 800 Mbps', 'Latency: 12ms'] },
+        firewall: { label: 'FIREWALL', description: 'pfSense — Network Security', details: ['Rules: 47 active', 'NAT: configured', 'VPN: 2 tunnels', 'IDS/IPS: Snort'] },
+        webserver: { label: 'WEB SERVER', description: 'Nginx — Reverse Proxy', details: ['Active conns: 234', 'SSL: Let\'s Encrypt', 'Load: 23%'] },
+        vpn: { label: 'VPN GATEWAY', description: 'OpenVPN / WireGuard', details: ['Clients: 3 connected', 'Encryption: AES-256', 'Protocol: UDP/1194'] },
+        database: { label: 'DATABASE', description: 'PostgreSQL — Data Store', details: ['Size: 2.4 GB', 'Queries/s: 145', 'Uptime: 99.97%'] },
+        client: { label: 'CLIENT', description: 'Windows 11 Workstation', details: ['Status: Connected', 'IP: 10.0.1.50', 'Latency: 3ms'] },
+        dns: { label: 'DNS RESOLVER', description: 'BIND9 — Name Resolution', details: ['Zones: 12', 'Cache hit: 94%', 'Queries/s: 890'] },
+      },
     },
     terminal: {
       welcome: 'Welcome to RB Terminal v1.0',
@@ -435,18 +455,22 @@ export const translations: Record<Language, Translations> = {
         cybersecurity: {
           title: 'Cybersécurité',
           description: "Comprendre les défis de sécurité, les mécanismes d'authentification, les pratiques de durcissement et l'analyse des risques.",
+          skills: ['Firewall', 'IDS/IPS', 'Durcissement', 'Analyse risques'],
         },
         systems: {
           title: 'Systèmes',
           description: "Administrer Windows Server, les environnements Active Directory et gérer l'infrastructure système d'entreprise.",
+          skills: ['Windows Server', 'Active Directory', 'GPO', 'PowerShell'],
         },
         networks: {
           title: 'Réseaux',
           description: 'Comprendre comment les machines, services et infrastructures communiquent — du DNS à iSCSI en passant par les VLANs.',
+          skills: ['DNS', 'DHCP', 'VLAN', 'TCP/IP'],
         },
         digital: {
           title: 'Consulting Digital',
           description: 'Traduire les besoins métiers en solutions techniques. Analyse, stratégie et communication claire.',
+          skills: ['Analyse', 'Stratégie', 'Communication', 'Solutions'],
         },
       },
       languagesLabel: 'Langues',
@@ -618,7 +642,19 @@ export const translations: Record<Language, Translations> = {
       description: "Je suis toujours ouvert à discuter de nouvelles opportunités, de projets intéressants ou simplement d'avoir une conversation sur la technologie. N'hésitez pas à me contacter.",
       labels: { email: 'Email', linkedin: 'LinkedIn', github: 'GitHub', cv: 'CV' },
       cvValue: 'Télécharger le CV',
-      cta: 'Me contacter',
+      cta: 'Copier l\'email',
+      ctaCopied: 'Copié !',
+    },
+    networkMap: {
+      nodes: {
+        internet: { label: 'INTERNET', description: 'Trafic réseau externe', details: ['Entrant: 1.2 Gbps', 'Sortant: 800 Mbps', 'Latence: 12ms'] },
+        firewall: { label: 'PARE-FEU', description: 'pfSense — Sécurité réseau', details: ['Règles: 47 actives', 'NAT: configuré', 'VPN: 2 tunnels', 'IDS/IPS: Snort'] },
+        webserver: { label: 'SERVEUR WEB', description: 'Nginx — Proxy inverse', details: ['Connexions: 234', 'SSL: Let\'s Encrypt', 'Charge: 23%'] },
+        vpn: { label: 'PASSERELLE VPN', description: 'OpenVPN / WireGuard', details: ['Clients: 3 connectés', 'Chiffrement: AES-256', 'Protocole: UDP/1194'] },
+        database: { label: 'BASE DE DONNÉES', description: 'PostgreSQL — Stockage', details: ['Taille: 2.4 GB', 'Requêtes/s: 145', 'Uptime: 99.97%'] },
+        client: { label: 'CLIENT', description: 'Poste Windows 11', details: ['Statut: Connecté', 'IP: 10.0.1.50', 'Latence: 3ms'] },
+        dns: { label: 'RÉSOLVEUR DNS', description: 'BIND9 — Résolution de noms', details: ['Zones: 12', 'Cache hit: 94%', 'Requêtes/s: 890'] },
+      },
     },
     terminal: {
       welcome: 'Bienvenue sur RB Terminal v1.0',
@@ -658,18 +694,22 @@ export const translations: Record<Language, Translations> = {
         cybersecurity: {
           title: 'Cybersecurity',
           description: 'Beveiligingsuitdagingen begrijpen, authenticatiemechanismen, verhardingspraktijken en risicoanalyse.',
+          skills: ['Firewall', 'IDS/IPS', 'Hardening', 'Risicoanalyse'],
         },
         systems: {
           title: 'Systemen',
           description: 'Windows Server beheren, Active Directory-omgevingen en enterprise systeeminfrastructuur onderhouden.',
+          skills: ['Windows Server', 'Active Directory', 'GPO', 'PowerShell'],
         },
         networks: {
           title: 'Netwerken',
           description: 'Begrijpen hoe machines, diensten en infrastructuren communiceren — van DNS tot iSCSI tot VLANs.',
+          skills: ['DNS', 'DHCP', 'VLAN', 'TCP/IP'],
         },
         digital: {
           title: 'Digitale Consulting',
           description: 'Bedrijfsbehoeften vertalen naar technische oplossingen. Analyse, strategie en heldere communicatie.',
+          skills: ['Analyse', 'Strategie', 'Communicatie', 'Oplossingen'],
         },
       },
       languagesLabel: 'Talen',
@@ -841,7 +881,19 @@ export const translations: Record<Language, Translations> = {
       description: 'Ik sta altijd open voor het bespreken van nieuwe mogelijkheden, interessante projecten of gewoon een gesprek over technologie. Neem gerust contact op.',
       labels: { email: 'Email', linkedin: 'LinkedIn', github: 'GitHub', cv: 'CV' },
       cvValue: 'CV Downloaden',
-      cta: 'Neem contact op',
+      cta: 'E-mail kopiëren',
+      ctaCopied: 'Gekopieerd!',
+    },
+    networkMap: {
+      nodes: {
+        internet: { label: 'INTERNET', description: 'Extern netwerkverkeer', details: ['Inkomend: 1.2 Gbps', 'Uitgaand: 800 Mbps', 'Latentie: 12ms'] },
+        firewall: { label: 'FIREWALL', description: 'pfSense — Netwerkbeveiliging', details: ['Regels: 47 actief', 'NAT: geconfigureerd', 'VPN: 2 tunnels', 'IDS/IPS: Snort'] },
+        webserver: { label: 'WEBSERVER', description: 'Nginx — Reverse Proxy', details: ['Verbindingen: 234', 'SSL: Let\'s Encrypt', 'Belasting: 23%'] },
+        vpn: { label: 'VPN GATEWAY', description: 'OpenVPN / WireGuard', details: ['Clients: 3 verbonden', 'Encryptie: AES-256', 'Protocol: UDP/1194'] },
+        database: { label: 'DATABASE', description: 'PostgreSQL — Dataopslag', details: ['Grootte: 2.4 GB', 'Queries/s: 145', 'Uptime: 99.97%'] },
+        client: { label: 'CLIENT', description: 'Windows 11 Werkstation', details: ['Status: Verbonden', 'IP: 10.0.1.50', 'Latentie: 3ms'] },
+        dns: { label: 'DNS RESOLVER', description: 'BIND9 — Naamresolutie', details: ['Zones: 12', 'Cache hit: 94%', 'Queries/s: 890'] },
+      },
     },
     terminal: {
       welcome: 'Welkom bij RB Terminal v1.0',

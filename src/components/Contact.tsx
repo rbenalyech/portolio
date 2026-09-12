@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { siteConfig } from '@/data/portfolio';
 import { useLanguage } from '@/i18n/LanguageContext';
@@ -13,6 +14,7 @@ const cvPaths = {
 
 export default function Contact() {
   const { language, t } = useLanguage();
+  const [copied, setCopied] = useState(false);
 
   const contactLinks = [
     {
@@ -42,7 +44,7 @@ export default function Contact() {
   ];
 
   return (
-    <section id="contact" className="relative py-32 overflow-hidden">
+    <section id="contact" className="relative py-16 sm:py-24 md:py-32 overflow-hidden">
       <div className="max-w-4xl mx-auto px-6">
         <ScrollReveal>
           <div className="flex items-center gap-4 mb-4">
@@ -97,10 +99,42 @@ export default function Contact() {
 
         <ScrollReveal delay={0.4}>
           <div className="text-center">
-            <a href={`mailto:${siteConfig.email}`} className="btn-primary interactive text-base px-8 py-3">
-              {t.contact.cta}
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
-            </a>
+            <button
+              onClick={() => {
+                const text = siteConfig.email;
+                if (navigator.clipboard?.writeText) {
+                  navigator.clipboard.writeText(text).catch(() => {
+                    const ta = document.createElement('textarea');
+                    ta.value = text;
+                    ta.style.position = 'fixed';
+                    ta.style.opacity = '0';
+                    document.body.appendChild(ta);
+                    ta.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(ta);
+                  });
+                } else {
+                  const ta = document.createElement('textarea');
+                  ta.value = text;
+                  ta.style.position = 'fixed';
+                  ta.style.opacity = '0';
+                  document.body.appendChild(ta);
+                  ta.select();
+                  document.execCommand('copy');
+                  document.body.removeChild(ta);
+                }
+                setCopied(true);
+                setTimeout(() => setCopied(false), 2000);
+              }}
+              className="btn-primary interactive text-base px-8 py-3 cursor-pointer"
+            >
+              {copied ? t.contact.ctaCopied : t.contact.cta}
+              {copied ? (
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="20,6 9,17 4,12"/></svg>
+              ) : (
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+              )}
+            </button>
           </div>
         </ScrollReveal>
       </div>

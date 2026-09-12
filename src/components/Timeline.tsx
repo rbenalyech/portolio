@@ -22,7 +22,7 @@ export default function Timeline() {
   const { t } = useLanguage();
 
   return (
-    <section id="journey" className="relative py-32 overflow-hidden">
+    <section id="journey" className="relative py-16 sm:py-24 md:py-32 overflow-hidden">
       <div className="max-w-4xl mx-auto px-6">
         <ScrollReveal>
           <div className="flex items-center gap-4 mb-4">

@@ -24,7 +24,7 @@ export default function Skills() {
   const activeKey = categoryKeys[activeCategoryIdx];
 
   return (
-    <section id="skills" className="relative py-32 overflow-hidden">
+    <section id="skills" className="relative py-16 sm:py-24 md:py-32 overflow-hidden">
       <div className="absolute inset-0 grid-bg opacity-50" />
       <div className="relative max-w-6xl mx-auto px-6">
         <ScrollReveal>

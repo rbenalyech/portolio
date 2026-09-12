@@ -25,18 +25,24 @@ export default function Navigation() {
 
   useEffect(() => {
     const sections = ['home', 'about', 'skills', 'projects', 'lab', 'journey', 'contact'];
+    let ticking = false;
     const onScroll = () => {
-      setScrolled(window.scrollY > 50);
-      const total = document.documentElement.scrollHeight - window.innerHeight;
-      setScrollProgress(total > 0 ? (window.scrollY / total) * 100 : 0);
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        setScrolled(window.scrollY > 50);
+        const total = document.documentElement.scrollHeight - window.innerHeight;
+        setScrollProgress(total > 0 ? (window.scrollY / total) * 100 : 0);
 
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const el = document.getElementById(sections[i]);
-        if (el && el.getBoundingClientRect().top <= 120) {
-          setActiveSection(sections[i]);
-          break;
+        for (let i = sections.length - 1; i >= 0; i--) {
+          const el = document.getElementById(sections[i]);
+          if (el && el.getBoundingClientRect().top <= 120) {
+            setActiveSection(sections[i]);
+            break;
+          }
         }
-      }
+        ticking = false;
+      });
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);

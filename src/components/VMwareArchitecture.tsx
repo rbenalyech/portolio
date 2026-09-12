@@ -24,8 +24,8 @@ export default function VMwareArchitecture({ nodes }: { nodes: ArchitectureNode[
         <span className="status-online text-[0.6rem]">Live View</span>
       </div>
 
-      <div className="p-6">
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-4">
+      <div className="p-3 sm:p-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 sm:gap-3 mb-4">
           {nodes.map((node) => (
             <motion.button
               key={node.id}
@@ -35,18 +35,18 @@ export default function VMwareArchitecture({ nodes }: { nodes: ArchitectureNode[
               className={`arch-node text-left interactive ${activeNode === node.id ? 'active' : ''}`}
             >
               <div className="flex items-center gap-2 mb-1.5">
-                <span className={`${activeNode === node.id ? 'text-primary' : 'text-text-muted'} transition-colors`}>
+                <span className={`shrink-0 ${activeNode === node.id ? 'text-primary' : 'text-text-muted'} transition-colors`}>
                   {typeIcons[node.type]}
                 </span>
                 <span className="font-[family-name:var(--font-mono)] text-xs font-medium text-text-primary truncate">
                   {node.label}
                 </span>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center justify-between gap-2">
                 {node.ip && (
-                  <span className="font-[family-name:var(--font-mono)] text-[0.6rem] text-text-muted">{node.ip}</span>
+                  <span className="font-[family-name:var(--font-mono)] text-[0.6rem] text-text-muted truncate">{node.ip}</span>
                 )}
-                <span className={`flex items-center gap-1 font-[family-name:var(--font-mono)] text-[0.6rem] ${
+                <span className={`flex items-center gap-1 font-[family-name:var(--font-mono)] text-[0.6rem] shrink-0 ml-auto ${
                   node.status === 'ONLINE' || node.status === 'ACTIVE' ? 'text-success' : 'text-warning'
                 }`}>
                   <span className={`w-1 h-1 rounded-full ${
